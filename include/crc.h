@@ -1,14 +1,17 @@
 #pragma once
 
 #if 1
+
 #include <stdint.h>
+
 typedef uint16_t uint_len;
-#define POLY_DEF
-#ifndef POLY_DEF
+
 #define POLY 0x8005
-#endif
+
 #else
+
 #include "crc_type.h"
+
 #endif
 
 /******************************************************************************

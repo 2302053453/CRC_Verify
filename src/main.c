@@ -6,6 +6,14 @@ uint8_t data[] = { 0x71, 0x7A, 0x02, 0x01, 0x01, 0x69 };
 int main(int argc, char *argv[])
 {
 	printf("Module: Testing!\n");
-	printf("0x%x\r\n", crc8(data, sizeof(data)));
+	printf(
+#ifdef POLY
+			"POLY:0x%x  Verify:0x%x\n",
+			POLY, 
+#else
+			"Verify:0x%x\n",
+#endif
+			crc8(data, sizeof(data))
+			);
 	return 0;
 }

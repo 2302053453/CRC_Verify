@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "crc.h"
+
 /******************************************************************************
  * Name:CRC-4/ITU x4+x+1
  * Poly:0x03
@@ -19,7 +20,7 @@ uint8_t crc4_itu(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x0C;// 0x0C = (reverse 0x03)>>(8-4)
 #else
 				crc = (crc >> 1) ^ POLY;
@@ -50,7 +51,7 @@ uint8_t crc5_epc(uint8_t *data, uint_len length)
 		for ( i = 0; i < 8; i++ )
 		{
 			if ( crc & 0x80 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x48;// 0x48 = 0x09<<(8-5)
 #else
 				crc = (crc << 1) ^ POLY;
@@ -81,7 +82,7 @@ uint8_t crc5_itu(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x15;// 0x15 = (reverse 0x15)>>(8-5)
 #else
 				crc = (crc >> 1) ^ POLY;
@@ -112,7 +113,7 @@ uint8_t crc5_usb(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x14;// 0x14 = (reverse 0x05)>>(8-5)
 #else
 				crc = (crc >> 1) ^ POLY;//0x14;// 0x14 = (reverse 0x05)>>(8-5)
@@ -143,7 +144,7 @@ uint8_t crc6_itu(uint8_t *data, uint_len length)
 		for	(i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x30;// 0x30 = (reverse 0x03)>>(8-6)
 #else
 				crc = (crc >> 1) ^ POLY;//0x30;// 0x30 = (reverse 0x03)>>(8-6)
@@ -174,7 +175,7 @@ uint8_t crc7_mmc(uint8_t *data, uint_len length)
 		for ( i = 0; i < 8; i++ )
 		{
 			if ( crc & 0x80 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x12;// 0x12 = 0x09<<(8-7)
 #else
 				crc = (crc << 1) ^ POLY;//0x12;// 0x12 = 0x09<<(8-7)
@@ -205,7 +206,7 @@ uint8_t crc8(uint8_t *data, uint_len length)
 		for ( i = 0; i < 8; i++ )
 		{
 			if ( crc & 0x80 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x07;
 #else
 				crc = (crc << 1) ^ POLY;//0x07;
@@ -236,7 +237,7 @@ uint8_t crc8_itu(uint8_t *data, uint_len length)
 		for ( i = 0; i < 8; i++ )
 		{
 			if ( crc & 0x80 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x07;
 #else
 				crc = (crc << 1) ^ POLY;//0x07;
@@ -267,7 +268,7 @@ uint8_t crc8_rohc(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xE0;// 0xE0 = reverse 0x07
 #else
 				crc = (crc >> 1) ^ POLY;//0xE0;// 0xE0 = reverse 0x07
@@ -299,7 +300,7 @@ uint8_t crc8_maxim(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; i++)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x8C;// 0x8C = reverse 0x31
 #else
 				crc = (crc >> 1) ^ POLY;//0x8C;// 0x8C = reverse 0x31
@@ -330,7 +331,7 @@ uint16_t crc16_ibm(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xA001;// 0xA001 = reverse 0x8005
 #else
 				crc = (crc >> 1) ^ POLY;//0xA001;// 0xA001 = reverse 0x8005
@@ -361,7 +362,7 @@ uint16_t crc16_maxim(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xA001;// 0xA001 = reverse 0x8005
 #else
 				crc = (crc >> 1) ^ POLY;//0xA001;// 0xA001 = reverse 0x8005
@@ -392,7 +393,7 @@ uint16_t crc16_usb(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xA001;// 0xA001 = reverse 0x8005
 #else
 				crc = (crc >> 1) ^ POLY;//0xA001;// 0xA001 = reverse 0x8005
@@ -423,7 +424,7 @@ uint16_t crc16_modbus(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xA001;// 0xA001 = reverse 0x8005
 #else
 				crc = (crc >> 1) ^ POLY;//0xA001;// 0xA001 = reverse 0x8005
@@ -454,7 +455,7 @@ uint16_t crc16_ccitt(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x8408;// 0x8408 = reverse 0x1021
 #else
 				crc = (crc >> 1) ^ POLY;//0x8408;// 0x8408 = reverse 0x1021
@@ -485,7 +486,7 @@ uint16_t crc16_ccitt_false(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if ( crc & 0x8000 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x1021;
 #else
 				crc = (crc << 1) ^ POLY;//0x1021;
@@ -516,7 +517,7 @@ uint16_t crc16_x25(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0x8408;// 0x8408 = reverse 0x1021
 #else
 				crc = (crc >> 1) ^ POLY;//0x8408;// 0x8408 = reverse 0x1021
@@ -547,7 +548,7 @@ uint16_t crc16_xmodem(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if ( crc & 0x8000 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x1021;
 #else
 				crc = (crc << 1) ^ POLY;//0x1021;
@@ -578,7 +579,7 @@ uint16_t crc16_dnp(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xA6BC;// 0xA6BC = reverse 0x3D65
 #else
 				crc = (crc >> 1) ^ POLY;//0xA6BC;// 0xA6BC = reverse 0x3D65
@@ -610,7 +611,7 @@ uint32_t crc32(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if (crc & 1)
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc >> 1) ^ 0xEDB88320;// 0xEDB88320= reverse 0x04C11DB7
 #else
 				crc = (crc >> 1) ^ POLY;//0xEDB88320;// 0xEDB88320= reverse 0x04C11DB7
@@ -641,7 +642,7 @@ uint32_t crc32_mpeg_2(uint8_t *data, uint_len length)
 		for (i = 0; i < 8; ++i)
 		{
 			if ( crc & 0x80000000 )
-#ifdef POLY_DEF
+#ifndef POLY
 				crc = (crc << 1) ^ 0x04C11DB7;
 #else
 				crc = (crc << 1) ^ POLY;//0x04C11DB7;
